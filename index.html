@@ -132,12 +132,11 @@ fetch(
 .then(data=>{
 
 predictedColleges = data;
-html = `<h2>${data.length} Colleges Found</h2>`;
-  
+
 document.getElementById("pdfBtn").style.display = "block";
 
-let html="";
-
+let html = `<h2>${data.length} Colleges Found</h2>`;
+  
 data.forEach(item=>{
 
 html += `
