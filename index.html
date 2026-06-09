@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MHT CET College Predictor</title>
+</head>
+
+<body>
+
+<h1>MHT CET College Predictor</h1>
+
+<input
+type="number"
+id="percentile"
+placeholder="Enter Percentile">
+
+<button onclick="predict()">
+Predict
+</button>
+
+<hr>
+
+<div id="result"></div>
+
+<script>
+
+function predict(){
+
+var p =
+document.getElementById(
+"percentile"
+).value;
+
+fetch(
+"https://script.google.com/macros/s/AKfycbzUX2MmmiXvBpHpv_2WmTPgEOWaUnBpd7Vljjw_8JwdhXcfxM5pkBtN1mLpb-Si7h_a/exec"+p
+)
+
+.then(response=>response.json())
+
+.then(data=>{
+
+let html="";
+
+data.forEach(item=>{
+
+html += `
+<div>
+
+<h3>${item.college}</h3>
+
+<p>
+Branch: ${item.branch}
+</p>
+
+<p>
+Category: ${item.category}
+</p>
+
+<p>
+Cutoff: ${item.cutoff}
+</p>
+
+<hr>
+
+</div>
+`;
+
+});
+
+document.getElementById(
+"result"
+).innerHTML=html;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
