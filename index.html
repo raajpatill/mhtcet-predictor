@@ -28,7 +28,7 @@ Predict
 
 <button id="pdfBtn"
 onclick="downloadPDF()"
-style="display:none;">
+style="display:block;">
 Download Predicted Colleges PDF
 </button>
 <script>
@@ -52,9 +52,7 @@ fetch(
 
 predictedColleges = data;
 
-document.getElementById(
-"pdfBtn"
-).style.display = "block";
+document.getElementById("pdfBtn").style.display = "block";
 
 let html="";
 
