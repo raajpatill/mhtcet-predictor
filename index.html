@@ -135,8 +135,17 @@ predictedColleges = data;
 
 document.getElementById("pdfBtn").style.display = "block";
 
-let html = `<h2>${data.length} Colleges Found</h2>`;
-  
+let html = `
+<div style="
+text-align:center;
+margin:20px;
+font-size:22px;
+font-weight:600;
+color:#2563eb;">
+🎯 ${data.length} Colleges Found
+</div>
+`;
+
 data.forEach(item=>{
 
 html += `
@@ -144,30 +153,20 @@ html += `
 
 <h3>🏫 ${item.college}</h3>
 
-<p>
-💻 Branch: ${item.branch}
-</p>
+<p>💻 Branch: ${item.branch}</p>
 
-<p>
-👥 Category: ${item.category}
-</p>
+<p>👥 Category: ${item.category}</p>
 
-<p>
-📊 Cutoff: ${item.cutoff}
-</p>
-
-<hr>
+<p>📊 Cutoff: ${item.cutoff}</p>
 
 </div>
 `;
 
 });
 
-document.getElementById(
-"result"
-).innerHTML=html;
+document.getElementById("result").innerHTML = html;
 
-});
+})
 
 }
 async function downloadPDF() {
