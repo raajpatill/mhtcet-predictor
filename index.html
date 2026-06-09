@@ -2,6 +2,9 @@
 <html>
 <head>
 <title>MHT CET College Predictor</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
@@ -21,10 +24,19 @@ Predict
 
 <div id="result"></div>
 
+<br><br>
+
+<button id="pdfBtn"
+onclick="downloadPDF()"
+style="display:none;">
+Download Predicted Colleges PDF
+</button>
 <script>
 
-function predict(){
+let predictedColleges = [];
 
+function predict(){
+  
 var p =
 document.getElementById(
 "percentile"
@@ -37,6 +49,12 @@ fetch(
 .then(response=>response.json())
 
 .then(data=>{
+
+predictedColleges = data;
+
+document.getElementById(
+"pdfBtn"
+).style.display = "block";
 
 let html="";
 
@@ -73,7 +91,80 @@ document.getElementById(
 });
 
 }
+async function downloadPDF() {
 
+if(predictedColleges.length === 0){
+
+alert("Please predict colleges first");
+
+return;
+
+}
+
+const { jsPDF } = window.jspdf;
+
+const doc = new jsPDF();
+
+doc.setFontSize(20);
+
+doc.text(
+"MHT CET College Prediction Report",20,20);
+
+const percentile =
+document.getElementById(
+"percentile"
+).value;
+
+doc.text(
+"Student Percentile: " +
+percentile,
+20,
+30
+);
+
+doc.setFontSize(12);
+
+let y = 50;
+
+predictedColleges.forEach((item,index)=>{
+
+doc.text(
+(index+1)+". "+item.college,
+20,
+y
+);
+
+y += 10;
+
+doc.text(
+"Branch: "+item.branch,
+25,
+y
+);
+
+y += 10;
+
+doc.text(
+"Category: "+item.category,
+25,
+y
+);
+
+y += 10;
+
+doc.text(
+"Cutoff: "+item.cutoff,
+25,
+y
+);
+
+y += 15;
+
+});
+
+doc.save("MHT-CET-Prediction.pdf");
+
+}
 </script>
 
 </body>
